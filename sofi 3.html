@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Sofía 💖</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top right, #ffe6f0, #ffcce0);
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .pantalla-inicio, .pantalla-amor {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: opacity 1s ease;
+      background: linear-gradient(to top right, #ffe6f0, #ffcce0);
+    }
+
+    .pantalla-inicio {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .pantalla-amor {
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .mostrar {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      z-index: 3 !important;
+    }
+
+    .boton {
+      padding: 15px 30px;
+      font-size: 20px;
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff66b2;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+
+    .boton:hover {
+      background-color: #e60073;
+    }
+
+    .corazon-contenedor {
+      position: relative;
+      width: 500px;
+      height: 450px;
+      animation: latir 1s infinite;
+    }
+
+    .corazon-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .texto-dentro {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 1px 1px 4px #000;
+      line-height: 1.5;
+    }
+
+    @keyframes latir {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.07); }
+    }
+
+    /* Corazones flotantes */
+    .corazon-fondo {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background-color: #ff99cc;
+      border-radius: 50%;
+      animation: flotar 8s linear infinite;
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    @keyframes flotar {
+      0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- PANTALLA DE INICIO -->
+  <div class="pantalla-inicio" id="inicio">
+    <h1>💌 Hola mi amor</h1>
+    <p>Tengo una sorpresa para ti...</p>
+    <button class="boton" onclick="mostrarSorpresa()">Haz clic para entrar</button>
+  </div>
+
+  <!-- PANTALLA DE AMOR -->
+  <div class="pantalla-amor" id="amor">
+    <div class="corazon-contenedor">
+      <svg class="corazon-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ff7eb3; stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ff3366; stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <path fill="url(#grad)" stroke="#e60073" stroke-width="4" d="M471.7,73.9c-54.5-46.4-136-38.3-186.7,13.7L256,117.3l-29-29.7
+          C176.3,35.6,94.8,27.5,40.3,73.9c-62,52.8-66.1,149.8-9.9,207.2l193.5,199.8c14.8,15.3,38.8,15.3,53.6,0l193.5-199.8
+          C537.8,223.7,533.7,126.7,471.7,73.9z"/>
+      </svg>
+      <div class="texto-dentro">
+        Sofía 💖<br>
+        Eres mi corazón, mi alegría y mi paz.<br>
+        Gracias por existir. Te amo con el alma.
+      </div>
+    </div>
+
+    <!-- MÚSICA LOCAL (DEBES AÑADIR EL ARCHIVO love-maze.mp3 en la misma carpeta) -->
+    <audio autoplay loop>
+      <source src="love-maze.mp3" type="audio/mpeg">
+      Tu navegador no soporta audio HTML5.
+    </audio>
+  </div>
+
+  <!-- SCRIPT: Mostrar pantalla y generar corazones -->
+  <script>
+    function mostrarSorpresa() {
+      document.getElementById('inicio').style.display = 'none';
+      document.getElementById('amor').classList.add('mostrar');
+      generarCorazones();
+    }
+
+    function generarCorazones() {
+      for (let i = 0; i < 25; i++) {
+        const corazon = document.createElement('div');
+        corazon.classList.add('corazon-fondo');
+        corazon.style.left = Math.random() * 100 + 'vw';
+        corazon.style.animationDuration = (5 + Math.random() * 5) + 's';
+        document.body.appendChild(corazon);
+        setTimeout(() => corazon.remove(), 10000);
+      }
+      setInterval(generarCorazones, 5000);
+    }
+  </script>
+</body>
+</html>
